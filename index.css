@@ -1,0 +1,75 @@
+body {
+    align-items: center;
+    background-color: rgb(124, 238, 247);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.card .tasa-title {
+    color: #555;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card .tasa-value {
+    color: #000;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card .fecha {
+    color: #777;
+    font-size: 1em;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .card .tasa-title {
+        font-size: 1.2em;
+    }
+
+    .card .tasa-value {
+        font-size: 2em;
+    }
+
+    .card .fecha {
+        font-size: 0.9em;
+    }
+}
