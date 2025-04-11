@@ -32,6 +32,8 @@ fetch('https://pydolarve.org/api/v1/dollar')
         document.getElementById('fecha_promedio').innerHTML = fecha_promedio;
     })
     .catch(error => {
+        const no_disponible = document.getElementById('no-disponible');
+        no_disponible.style.display = 'flex';
         console.error('Error:', error);
     }).finally(() => {
         const loader = document.getElementById('loader');
