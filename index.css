@@ -55,6 +55,26 @@ h1 {
     font-size: 1em;
 }
 
+#creditos {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.9em;
+    color: #666;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+#creditos a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#creditos a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 15px;
