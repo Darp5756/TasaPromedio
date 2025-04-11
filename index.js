@@ -33,4 +33,7 @@ fetch('https://pydolarve.org/api/v1/dollar')
     })
     .catch(error => {
         console.error('Error:', error);
+    }).finally(() => {
+        const loader = document.getElementById('loader');
+        loader.style.display = 'none';
     });
