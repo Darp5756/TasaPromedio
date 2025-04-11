@@ -9,6 +9,7 @@ fetch('https://pydolarve.org/api/v1/dollar?page=criptodolar')
         const resultados = data['monitors'];
         const monitor_bcv = resultados['bcv'];
         const monitor_paralelo = resultados['enparalelovzla'];
+        const monitor_promedio = resultados['promedio'];
 
         //BCV
         const tasa_bcv = monitor_bcv['price'];
@@ -23,11 +24,8 @@ fetch('https://pydolarve.org/api/v1/dollar?page=criptodolar')
         document.getElementById('fecha_paralelo').innerHTML = fecha_paralelo;
 
         //Promedio
-        const tasa_promedio = Math.round(((tasa_bcv + tasa_paralelo) / 2) * 100) / 100;
-        const fecha_promedio = (() => {
-            const fecha = new Date();
-            return `${fecha.getDate().toString().padStart(2, '0')}/${(fecha.getMonth() + 1).toString().padStart(2, '0')}/${fecha.getFullYear()}, ${(fecha.getHours() % 12 || 12).toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')} ${fecha.getHours() >= 12 ? 'PM' : 'AM'}`;
-        })();
+        const tasa_promedio = monitor_promedio['price'];
+        const fecha_promedio = monitor_promedio['last_update'];
         document.getElementById('tasa_promedio').innerHTML = parseFloat(tasa_promedio).toFixed(2);
         document.getElementById('fecha_promedio').innerHTML = fecha_promedio;
     })
