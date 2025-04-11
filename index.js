@@ -13,13 +13,13 @@ fetch('https://pydolarve.org/api/v1/dollar?page=criptodolar')
         //BCV
         const tasa_bcv = monitor_bcv['price'];
         const fecha_bcv = monitor_bcv['last_update'];
-        document.getElementById('tasa_bcv').innerHTML = tasa_bcv;
+        document.getElementById('tasa_bcv').innerHTML = parseFloat(tasa_bcv).toFixed(2);
         document.getElementById('fecha_bcv').innerHTML = fecha_bcv;
 
         //Paralelo
         const tasa_paralelo = monitor_paralelo['price'];
         const fecha_paralelo = monitor_paralelo['last_update'];
-        document.getElementById('tasa_paralelo').innerHTML = tasa_paralelo;
+        document.getElementById('tasa_paralelo').innerHTML = parseFloat(tasa_paralelo).toFixed(2);
         document.getElementById('fecha_paralelo').innerHTML = fecha_paralelo;
 
         //Promedio
@@ -28,7 +28,7 @@ fetch('https://pydolarve.org/api/v1/dollar?page=criptodolar')
             const fecha = new Date();
             return `${fecha.getDate().toString().padStart(2, '0')}/${(fecha.getMonth() + 1).toString().padStart(2, '0')}/${fecha.getFullYear()}, ${(fecha.getHours() % 12 || 12).toString().padStart(2, '0')}:${fecha.getMinutes().toString().padStart(2, '0')} ${fecha.getHours() >= 12 ? 'PM' : 'AM'}`;
         })();
-        document.getElementById('tasa_promedio').innerHTML = tasa_promedio;
+        document.getElementById('tasa_promedio').innerHTML = parseFloat(tasa_promedio).toFixed(2);
         document.getElementById('fecha_promedio').innerHTML = fecha_promedio;
     })
     .catch(error => {
