@@ -66,6 +66,12 @@ h1 {
     border-radius: 6px;
 }
 
+#creditos span {
+    display: block;
+    margin: 5px;
+    text-align: center;
+}
+
 #creditos a {
     color: #007bff;
     text-decoration: none;
