@@ -56,14 +56,14 @@ h1 {
 }
 
 #creditos {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    font-size: 0.9em;
-    color: #666;
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 4px 8px;
     border-radius: 6px;
+    bottom: 10px;
+    color: #666;
+    font-size: 0.9em;
+    padding: 4px 8px;
+    position: fixed;
+    right: 10px;
 }
 
 #creditos span {
@@ -82,28 +82,27 @@ h1 {
 }
 
 #loader {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    align-items: center;
     background: rgba(255, 255, 255, 0.9);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100%;
     justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
     z-index: 9999;
 }
 
 .spinner {
-    width: 50px;
-    height: 50px;
-    border: 6px solid #ccc;
-    border-top-color: #007bff;
-    border-radius: 50%;
     animation: spin 1s linear infinite;
+    border: 6px solid #ccc;
+    border-radius: 50%;
+    border-top-color: #007bff;
+    height: 50px;
     margin-bottom: 10px;
+    width: 50px;
 }
 
 @keyframes spin {
@@ -111,8 +110,8 @@ h1 {
 }
 
 #loader p {
-    font-weight: bold;
     color: #333;
+    font-weight: bold;
 }
 
 #no-disponible {
