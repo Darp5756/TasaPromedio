@@ -1,4 +1,4 @@
-fetch('https://pydolarve.org/api/v1/dollar?page=criptodolar')
+fetch('https://pydolarve.org/api/v1/dollar?page=alcambio')
     .then(response => {
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
