@@ -83,7 +83,7 @@ h1 {
 
 #loader {
     align-items: center;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 255);
     display: flex;
     flex-direction: column;
     height: 100%;
