@@ -116,7 +116,7 @@ h1 {
 
 #no-disponible {
     align-items: center;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 255);
     color: red;
     display: none;
     flex-direction: column;
