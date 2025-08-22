@@ -99,7 +99,7 @@ h1 {
 
 #loader {
     align-items: center;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255);
     display: none;
     height: 100%;
     justify-content: center;
@@ -127,7 +127,7 @@ h1 {
 
 #no-disponible {
     align-items: center;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255);
     color: red;
     display: none;
     font-size: 2em;
