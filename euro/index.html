@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasa Oficial Euro</title>
+    <link rel="shortcut icon" href="icono.png">
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body>
+    <h1>Tasa Oficial</h1>
+    <div class="container">
+        <div class="card">
+            <div class="tasa-title">BCV</div>
+            <div class="tasa-value" id="tasa_bcv"></div>
+            <div class="fecha" id="fecha_bcv"></div>
+        </div>
+    </div>
+    <div id="creditos">
+        <span>
+            Fuente:
+            <a href="https://dolarvzla.com/" target="_blank">
+                dolarvzla.com
+            </a>
+        </span>
+    </div>
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>Cargando tasa...</p>
+    </div>
+    <div id="no-disponible">
+        Servicio no disponible.<br>
+        Por favor, intente más tarde.
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
