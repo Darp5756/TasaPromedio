@@ -1,5 +1,5 @@
 Promise.all([
-  fetch("https://api.dolarvzla.com/public/exchange-rate"),
+  fetch("https://open.er-api.com/v6/latest/EUR"),
 ])
 .then(async ([res1]) => {
 	if (!res1.ok) {
@@ -8,8 +8,8 @@ Promise.all([
 
 	//BCV
     const monitor_bcv = await res1.json();    
-    const tasa_bcv = monitor_bcv.current.eur;
-    const fecha_bcv = monitor_bcv.current.date;
+    const tasa_bcv = monitor_bcv.rates.VES;
+    const fecha_bcv = monitor_bcv.time_last_update_utc;
     document.getElementById("tasa_bcv").innerHTML = parseFloat(tasa_bcv).toFixed(2);
     document.getElementById("fecha_bcv").innerHTML = formatearFecha(fecha_bcv);
 })
