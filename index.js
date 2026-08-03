@@ -1,42 +1,91 @@
-Promise.all([
-  fetch("https://ve.dolarapi.com/v1/dolares/oficial"),
-  fetch("https://ve.dolarapi.com/v1/dolares/paralelo"),
-])
-.then(async ([res1, res2]) => {
-	if (!res1.ok || !res2.ok) {
-      throw new Error(`Error HTTP: ${res1.status} / ${res2.status}`);
-    }
+const MONEDAS = {
+    dolar: {
+        label: "Dólar",
+        endpoint: "https://ve.dolarapi.com/v1/dolares",
+    },
+    euro: {
+        label: "Euro",
+        endpoint: "https://ve.dolarapi.com/v1/euros",
+    },
+};
 
-    const monitor_bcv = await res1.json();
-    const monitor_paralelo = await res2.json();
+const TAB_ACTIVA = "dolar"; // por defecto Dólar
 
-	//BCV
-    const tasa_bcv = monitor_bcv["promedio"];
-    const fecha_bcv = monitor_bcv["fechaActualizacion"];
-    document.getElementById("tasa_bcv").innerHTML = parseFloat(tasa_bcv).toFixed(2);
-    document.getElementById("fecha_bcv").innerHTML = formatearFecha(fecha_bcv);
+const tabEuro = document.getElementById("tab_euro");
+const tabDolar = document.getElementById("tab_dolar");
 
-    // Paralelo
-    const tasa_paralelo = monitor_paralelo["promedio"];
-    const fecha_paralelo = monitor_paralelo["fechaActualizacion"];
-    document.getElementById("tasa_paralelo").innerHTML = parseFloat(tasa_paralelo).toFixed(2);
-    document.getElementById("fecha_paralelo").innerHTML = formatearFecha(fecha_paralelo);
+function cambiarTab(moneda) {
+    // Actualizar tab activa
+    tabEuro.classList.toggle("active", moneda === "euro");
+    tabDolar.classList.toggle("active", moneda === "dolar");
 
-    // Promedio
-    const tasa_promedio = Math.round(((tasa_bcv + tasa_paralelo) / 2) * 100) / 100;
-    const fecha_promedio = formatearFecha(new Date().toISOString());
-    document.getElementById("tasa_promedio").innerHTML = parseFloat(tasa_promedio).toFixed(2);
-    document.getElementById("fecha_promedio").innerHTML = fecha_promedio;
-})
-.catch((error) => {
+    // Limpiar valores anteriores
+    document.getElementById("tasa_bcv").innerHTML = "";
+    document.getElementById("fecha_bcv").innerHTML = "";
+    document.getElementById("tasa_paralelo").innerHTML = "";
+    document.getElementById("fecha_paralelo").innerHTML = "";
+    document.getElementById("tasa_promedio").innerHTML = "";
+    document.getElementById("fecha_promedio").innerHTML = "";
+
     const no_disponible = document.getElementById("no-disponible");
-    no_disponible.style.display = "flex";
-    console.error("Error:", error);
-})
-.finally(() => {
+    no_disponible.style.display = "none";
     const loader = document.getElementById("loader");
-    loader.style.display = "none";
-});
+    loader.style.display = "flex";
+
+    cargarTasas(moneda);
+}
+
+function cargarTasas(moneda) {
+    const endpoint = MONEDAS[moneda].endpoint;
+
+    fetch(endpoint)
+        .then(async (res) => {
+            if (!res.ok) {
+                throw new Error(`Error HTTP: ${res.status}`);
+            }
+
+            const cotizaciones = await res.json();
+            const oficial = cotizaciones.find((c) => c["fuente"] === "oficial");
+            const paralelo = cotizaciones.find((c) => c["fuente"] === "paralelo");
+
+            // BCV (oficial)
+            document.getElementById("tasa_bcv").innerHTML =
+                parseFloat(oficial["promedio"]).toFixed(2);
+            document.getElementById("fecha_bcv").innerHTML =
+                formatearFecha(oficial["fechaActualizacion"]);
+
+            // Paralelo
+            document.getElementById("tasa_paralelo").innerHTML =
+                parseFloat(paralelo["promedio"]).toFixed(2);
+            document.getElementById("fecha_paralelo").innerHTML =
+                formatearFecha(paralelo["fechaActualizacion"]);
+
+            // Promedio
+            const tasa_bcv = parseFloat(oficial["promedio"]);
+            const tasa_paralelo = parseFloat(paralelo["promedio"]);
+            const tasa_promedio =
+                Math.round(((tasa_bcv + tasa_paralelo) / 2) * 100) / 100;
+            document.getElementById("tasa_promedio").innerHTML =
+                parseFloat(tasa_promedio).toFixed(2);
+            document.getElementById("fecha_promedio").innerHTML =
+                formatearFecha(new Date().toISOString());
+        })
+        .catch((error) => {
+            const no_disponible = document.getElementById("no-disponible");
+            no_disponible.style.display = "flex";
+            console.error("Error:", error);
+        })
+        .finally(() => {
+            const loader = document.getElementById("loader");
+            loader.style.display = "none";
+        });
+}
+
+tabEuro.addEventListener("click", () => cambiarTab("euro"));
+tabDolar.addEventListener("click", () => cambiarTab("dolar"));
+
+// Cargar moneda por defecto
+cambiarTab(TAB_ACTIVA);
 
 function formatearFecha(fechaInput) {
     const fecha = new Date(fechaInput);
