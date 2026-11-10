@@ -483,8 +483,16 @@ body:has(.modal[open]) {
     margin: auto;
     max-height: min(85vh, 760px);
     max-width: 560px;
+    overflow: hidden;
     padding: 0;
     width: calc(100% - 24px);
+}
+
+/* Abierto, el dialog es una columna: el contenido se ajusta a su altura
+   y solo la tabla (.modal-cuerpo) tiene scroll. */
+.modal[open] {
+    display: flex;
+    flex-direction: column;
 }
 
 .modal::backdrop {
@@ -493,8 +501,9 @@ body:has(.modal[open]) {
 
 .modal-contenido {
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
-    max-height: min(85vh, 760px);
+    min-height: 0;
     padding: 20px;
 }
 
