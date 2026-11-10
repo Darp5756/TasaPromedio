@@ -20,6 +20,16 @@ export function formatearTasa(valor) {
     return formatoTasa.format(valor);
 }
 
+const formatoPorcentaje = new Intl.NumberFormat("es-VE", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+});
+
+/** 17.57 → "17,6%" */
+export function formatearPorcentaje(valor) {
+    return `${formatoPorcentaje.format(valor)}%`;
+}
+
 /** Redondea a 2 decimales. */
 export function redondear(valor) {
     return Math.round(valor * 100) / 100;

@@ -3,58 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tasa BCV, paralelo y su promedio para el dólar y el euro en Venezuela.">
+    <meta name="theme-color" content="#f2f4f7">
     <title>Tasa Promedio</title>
     <link rel="shortcut icon" href="assets/icono.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Tasa Promedio</h1>
-    <div class="tabs">
-        <button class="tab-btn active" id="tab_dolar">Dólar</button>
-        <button class="tab-btn" id="tab_euro">Euro</button>
-    </div>
-    <div class="container">
-        <div class="card">
-            <div class="tasa-title">BCV</div>
-            <div class="tasa-value" id="tasa_bcv"></div>
-            <div class="fecha" id="fecha_bcv"></div>
-        </div>
-        <div class="card">
-            <div class="tasa-title">Paralelo</div>
-            <div class="tasa-value" id="tasa_paralelo"></div>
-            <div class="fecha" id="fecha_paralelo"></div>
-        </div>
-        <div class="card">
-            <div class="tasa-title">Promedio</div>
-            <div class="tasa-value" id="tasa_promedio"></div>
-            <div class="fecha" id="fecha_promedio"></div>
-        </div>
-    </div>
-    <div id="creditos">
-        <span>
-            Fuente:
-            <a href="https://dolarapi.com/docs/" target="_blank">
-                dolarapi.com
-            </a>
-        </span>
-        <span>
-            Origen:
-            <a href="https://bcv.org.ve/" target="_blank">
-                BCV
-            </a>
-            |
-            <a href="https://yadio.io/" target="_blank">
-                Yadio
-            </a>
-        </span>
-    </div>
-    <div id="loader">
-        <div class="spinner"></div>
-        <p>Cargando tasas...</p>
-    </div>
-    <div id="no-disponible">
-        Servicio no disponible.<br>
-        Por favor, intente más tarde.
+    <div class="app">
+        <header class="encabezado">
+            <div class="marca">
+                <div class="marca-logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 9h16M4 15h16"/></svg>
+                </div>
+                <div>
+                    <h1>Tasa Promedio</h1>
+                    <p class="subtitulo">Bolívares por divisa · BCV y paralelo</p>
+                </div>
+            </div>
+            <div class="controles">
+                <div class="selector" role="group" aria-label="Moneda">
+                    <button class="selector-btn" id="tab_dolar" type="button" aria-pressed="true">Dólar · USD</button>
+                    <button class="selector-btn" id="tab_euro" type="button" aria-pressed="false">Euro · EUR</button>
+                </div>
+                <button class="btn-icono" id="actualizar" type="button" aria-label="Actualizar tasas">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="contenido" id="contenido" aria-busy="true">
+            <section class="tarjeta-principal" aria-labelledby="titulo_promedio">
+                <h2 class="etiqueta" id="titulo_promedio">Promedio BCV + Paralelo</h2>
+                <p class="valor-principal" aria-live="polite">
+                    <span class="valor" id="tasa_promedio"></span>
+                    <span class="unidad" id="unidad">Bs/USD</span>
+                </p>
+                <div class="pie-principal">
+                    <span class="fecha" id="fecha_promedio"></span>
+                    <button class="btn-copiar" id="copiar" type="button" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+                        <span id="copiar_texto">Copiar tasa</span>
+                    </button>
+                </div>
+            </section>
+
+            <div class="tarjetas">
+                <section class="tarjeta" aria-labelledby="titulo_bcv">
+                    <h2 class="etiqueta" id="titulo_bcv"><span class="punto punto-bcv" aria-hidden="true"></span>BCV oficial</h2>
+                    <p class="valor" id="tasa_bcv"></p>
+                    <p class="fecha" id="fecha_bcv"></p>
+                </section>
+                <section class="tarjeta" aria-labelledby="titulo_paralelo">
+                    <h2 class="etiqueta" id="titulo_paralelo"><span class="punto punto-paralelo" aria-hidden="true"></span>Paralelo</h2>
+                    <p class="valor" id="tasa_paralelo"></p>
+                    <p class="fecha" id="fecha_paralelo"></p>
+                </section>
+                <section class="tarjeta tarjeta-brecha" aria-labelledby="titulo_brecha">
+                    <div class="brecha-cabecera">
+                        <h2 class="etiqueta" id="titulo_brecha">Brecha paralelo / BCV</h2>
+                        <p class="valor valor-brecha" id="tasa_brecha"></p>
+                    </div>
+                    <div class="barra" aria-hidden="true"><div class="barra-relleno" id="barra_brecha"></div></div>
+                </section>
+            </div>
+
+            <p class="aviso" id="no-disponible" role="alert" hidden>
+                Servicio no disponible. Por favor, intente más tarde.
+            </p>
+        </main>
+
+        <footer class="creditos">
+            <span>
+                Fuente: <a href="https://dolarapi.com/docs/" target="_blank" rel="noopener">DolarApi</a>
+                · Origen: <a href="https://bcv.org.ve/" target="_blank" rel="noopener">BCV</a>
+                | <a href="https://yadio.io/" target="_blank" rel="noopener">Yadio</a>
+            </span>
+            <span>Promedio = (BCV + Paralelo) ÷ 2</span>
+        </footer>
     </div>
     <script type="module" src="js/app.js"></script>
 </body>
