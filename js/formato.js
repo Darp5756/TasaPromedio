@@ -5,6 +5,11 @@ const formatoTasa = new Intl.NumberFormat("es-VE", {
     maximumFractionDigits: 2,
 });
 
+const formatoPorcentaje = new Intl.NumberFormat("es-VE", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+});
+
 const formatoFecha = new Intl.DateTimeFormat("es-VE", {
     timeZone: "America/Caracas",
     day: "2-digit",
@@ -15,15 +20,12 @@ const formatoFecha = new Intl.DateTimeFormat("es-VE", {
     hourCycle: "h23",
 });
 
+const DIAS_SEMANA = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
 /** 1057.313401 → "1.057,31" */
 export function formatearTasa(valor) {
     return formatoTasa.format(valor);
 }
-
-const formatoPorcentaje = new Intl.NumberFormat("es-VE", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-});
 
 /** 17.57 → "17,6%" */
 export function formatearPorcentaje(valor) {
@@ -55,4 +57,11 @@ export function formatearFecha(fechaIso) {
     const horas = (horas24 % 12 || 12).toString().padStart(2, "0");
     const ampm = horas24 >= 12 ? "PM" : "AM";
     return `${fecha}, ${horas}:${partes.minute} ${ampm}`;
+}
+
+/** "2026-11-10" → "Mar 10/11" */
+export function formatearDia(fechaIso) {
+    const [anio, mes, dia] = fechaIso.split("-").map(Number);
+    const diaSemana = DIAS_SEMANA[new Date(Date.UTC(anio, mes - 1, dia)).getUTCDay()];
+    return `${diaSemana} ${String(dia).padStart(2, "0")}/${String(mes).padStart(2, "0")}`;
 }

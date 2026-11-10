@@ -1,19 +1,91 @@
 :root {
     --acento: #2dd4bf;
+    --aviso-borde: #fecdca;
+    --aviso-fondo: #fef3f2;
+    --aviso-texto: #b42318;
     --bcv: #2563eb;
     --borde: #e4e7ec;
     --borde-suave: #f2f4f7;
     --brecha: #b93815;
+    --enlace: #1d4ed8;
+    --enlace-hover: #1e3a8a;
     --fondo: #f2f4f7;
+    --fondo-modal: rgba(11, 18, 32, 0.5);
     --fuente-numeros: "Space Grotesk", Inter, system-ui, sans-serif;
     --fuente-texto: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
     --paralelo: #c2410c;
     --principal: #0b1220;
+    --principal-borde: #0b1220;
     --principal-texto: #b4bdcc;
+    --selector-activo: #ffffff;
+    --selector-fondo: #e4e7ec;
+    --sombra: rgba(16, 24, 40, 0.12);
     --superficie: #ffffff;
     --texto: #0b1220;
     --texto-medio: #344054;
     --texto-suave: #475467;
+    color-scheme: light;
+}
+
+/* Modo oscuro: sigue al sistema salvo que el usuario elija claro, o forzado con data-tema="oscuro". */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-tema="claro"]) {
+        --acento: #2dd4bf;
+        --aviso-borde: #7a271a;
+        --aviso-fondo: #2d1410;
+        --aviso-texto: #fda29b;
+        --bcv: #60a5fa;
+        --borde: #273244;
+        --borde-suave: #1b2331;
+        --brecha: #fb923c;
+        --enlace: #93c5fd;
+        --enlace-hover: #bfdbfe;
+        --fondo: #0b1018;
+        --fondo-modal: rgba(0, 0, 0, 0.6);
+        --paralelo: #f97316;
+        --principal: #18243a;
+        --principal-borde: #2a3a57;
+        --principal-texto: #b4bdcc;
+        --selector-activo: #34415a;
+    --selector-fondo: #1b2331;
+        --sombra: rgba(0, 0, 0, 0.4);
+        --superficie: #131a26;
+        --texto: #f2f4f7;
+        --texto-medio: #d0d5dd;
+        --texto-suave: #98a2b3;
+        color-scheme: dark;
+    }
+}
+
+:root[data-tema="oscuro"] {
+    --acento: #2dd4bf;
+    --aviso-borde: #7a271a;
+    --aviso-fondo: #2d1410;
+    --aviso-texto: #fda29b;
+    --bcv: #60a5fa;
+    --borde: #273244;
+    --borde-suave: #1b2331;
+    --brecha: #fb923c;
+    --enlace: #93c5fd;
+    --enlace-hover: #bfdbfe;
+    --fondo: #0b1018;
+    --fondo-modal: rgba(0, 0, 0, 0.6);
+    --paralelo: #f97316;
+    --principal: #18243a;
+    --principal-borde: #2a3a57;
+    --principal-texto: #b4bdcc;
+    --selector-activo: #34415a;
+    --selector-fondo: #1b2331;
+    --sombra: rgba(0, 0, 0, 0.4);
+    --superficie: #131a26;
+    --texto: #f2f4f7;
+    --texto-medio: #d0d5dd;
+    --texto-suave: #98a2b3;
+    color-scheme: dark;
+}
+
+[hidden] {
+    display: none !important;
 }
 
 * {
@@ -108,7 +180,7 @@ h1 {
 }
 
 .selector {
-    background-color: var(--borde);
+    background-color: var(--selector-fondo);
     border-radius: 14px;
     display: grid;
     flex: 1 1 auto;
@@ -136,8 +208,8 @@ h1 {
 }
 
 .selector-btn[aria-pressed="true"] {
-    background-color: var(--superficie);
-    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.12);
+    background-color: var(--selector-activo);
+    box-shadow: 0 1px 2px var(--sombra);
     color: var(--texto);
 }
 
@@ -212,6 +284,7 @@ h1 {
 
 .tarjeta-principal {
     background-color: var(--principal);
+    border: 1px solid var(--principal-borde);
     border-radius: 20px;
     color: #ffffff;
     display: flex;
@@ -361,13 +434,147 @@ h1 {
 }
 
 .aviso {
-    background-color: #fef3f2;
-    border: 1px solid #fecdca;
+    background-color: var(--aviso-fondo);
+    border: 1px solid var(--aviso-borde);
     border-radius: 12px;
-    color: #b42318;
+    color: var(--aviso-texto);
     font-weight: 600;
     padding: 12px 16px;
     text-align: center;
+}
+
+/* Botón e historial */
+
+.btn-historial {
+    align-items: center;
+    align-self: center;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    color: var(--enlace);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.95rem;
+    font-weight: 600;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+}
+
+.btn-historial:hover {
+    background-color: var(--borde-suave);
+}
+
+.btn-historial svg {
+    height: 18px;
+    width: 18px;
+}
+
+body:has(.modal[open]) {
+    overflow: hidden;
+}
+
+.modal {
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    box-shadow: 0 24px 48px var(--sombra);
+    color: var(--texto);
+    margin: auto;
+    max-height: min(85vh, 760px);
+    max-width: 560px;
+    padding: 0;
+    width: calc(100% - 24px);
+}
+
+.modal::backdrop {
+    background-color: var(--fondo-modal);
+}
+
+.modal-contenido {
+    display: flex;
+    flex-direction: column;
+    max-height: min(85vh, 760px);
+    padding: 20px;
+}
+
+.modal-cabecera {
+    align-items: flex-start;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding-bottom: 8px;
+}
+
+.modal-cabecera h2 {
+    font-family: var(--fuente-numeros);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.modal-subtitulo {
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+}
+
+.modal-cuerpo {
+    min-height: 120px;
+    overflow-y: auto;
+}
+
+.modal-estado {
+    color: var(--texto-suave);
+    padding: 40px 0;
+    text-align: center;
+}
+
+.modal-nota {
+    border-top: 1px solid var(--borde);
+    color: var(--texto-suave);
+    font-size: 0.75rem;
+    padding-top: 10px;
+}
+
+.tabla {
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.tabla th {
+    background-color: var(--superficie);
+    color: var(--texto-suave);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 8px 0;
+    position: sticky;
+    text-align: right;
+    top: 0;
+}
+
+.tabla td {
+    border-top: 1px solid var(--borde-suave);
+    padding: 10px 0;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.tabla th:first-child,
+.tabla td:first-child {
+    text-align: left;
+}
+
+.tabla th + th,
+.tabla td + td {
+    padding-left: 12px;
+}
+
+.tabla .destacado {
+    font-weight: 700;
+}
+
+.tabla .repetido {
+    color: var(--texto-suave);
 }
 
 /* Créditos */
@@ -386,12 +593,12 @@ h1 {
 }
 
 .creditos a {
-    color: #1d4ed8;
+    color: var(--enlace);
     text-decoration: none;
 }
 
 .creditos a:hover {
-    color: #1e3a8a;
+    color: var(--enlace-hover);
     text-decoration: underline;
 }
 
@@ -412,6 +619,21 @@ h1 {
     *::before {
         animation: none !important;
         transition: none !important;
+    }
+}
+
+@media (max-width: 440px) {
+    .selector-btn .codigo {
+        display: none;
+    }
+
+    .controles {
+        gap: 8px;
+    }
+
+    .btn-icono {
+        height: 44px;
+        width: 44px;
     }
 }
 

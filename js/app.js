@@ -1,5 +1,7 @@
 import { MONEDAS, obtenerCotizaciones } from "./api.js";
 import { formatearFecha, formatearPorcentaje, formatearTasa, redondear } from "./formato.js";
+import { iniciarHistorial } from "./historial.js";
+import { iniciarTema } from "./tema.js";
 
 const MONEDA_INICIAL = "dolar";
 const NO_DISPONIBLE = "No disponible";
@@ -136,4 +138,6 @@ for (const moneda of Object.keys(MONEDAS)) {
 botonActualizar.addEventListener("click", () => cargarTasas(monedaActual));
 botonCopiar.addEventListener("click", copiarPromedio);
 
+iniciarTema();
+iniciarHistorial(() => monedaActual);
 cargarTasas(MONEDA_INICIAL);

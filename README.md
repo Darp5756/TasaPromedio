@@ -7,7 +7,7 @@ Página web que muestra el tipo de cambio del bolívar frente al **dólar** y al
 - **Promedio**: `(BCV + Paralelo) ÷ 2`, redondeado a 2 decimales.
 - **Brecha**: cuánto más alto está el paralelo respecto al BCV, en porcentaje.
 
-También permite copiar la tasa promedio con un clic y actualizar los datos.
+También permite copiar la tasa promedio con un clic, actualizar los datos, ver el historial de los últimos 30 días y cambiar entre modo claro y oscuro.
 
 ## Datos
 
@@ -17,6 +17,7 @@ Las tasas vienen de [DolarApi](https://dolarapi.com/docs/venezuela/):
 |---|---|
 | Dólar | `https://ve.dolarapi.com/v1/dolares` |
 | Euro | `https://ve.dolarapi.com/v1/euros` |
+| Historial | `https://ve.dolarapi.com/v1/historicos/{dolares,euros}/{oficial,paralelo}` |
 
 Origen de cada serie: [BCV](https://bcv.org.ve/) (oficial) y [Yadio](https://yadio.io/) (paralelo).
 Según las [condiciones de uso](https://dolarapi.com/docs/uso) de DolarApi, cualquier publicación que use estos datos debe citar el servicio.
@@ -28,6 +29,8 @@ index.html         Página
 css/styles.css     Estilos
 js/app.js          Interfaz: pestañas, tarjetas, copiar y actualizar
 js/api.js          Llamadas a DolarApi
+js/historial.js    Modal con el historial de 30 días
+js/tema.js         Modo claro / oscuro
 js/formato.js      Formato de tasas, porcentajes y fechas (es-VE, hora de Caracas)
 assets/icono.png   Favicon
 ```
